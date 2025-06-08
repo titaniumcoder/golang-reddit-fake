@@ -14,16 +14,19 @@ type PostStore struct {
 
 func (s *PostStore) Post(id uuid.UUID) (goreddit.Post, error) {
 	var p goreddit.Post
-	if err := s.Get(&p, `SELECT * FROM posts WHERE id = $1`, id); err != nil {
+	if err := s.Get(&p, `SELECT p.* FROM posts p WHERE p.id = $1`, id); err != nil {
 		return goreddit.Post{}, fmt.Errorf("error getting post: %w", err)
 	}
 	return p, nil
 }
 
-func (s *PostStore) PostsByThread(threadID uuid.UUID) ([]goreddit.Post, error) {
-	var pp []goreddit.Post
-	if err := s.Select(&pp, `SELECT * FROM posts WHERE thread_id = $1`, threadID); err != nil {
-		return []goreddit.Post{}, fmt.Errorf("error getting threads: %w", err)
+func (s *PostStore) PostsByThread(threadID uuid.UUID) ([]goreddit.PostWithCount, error) {
+	var pp []goreddit.PostWithCount
+	if err := s.Select(&pp, `
+		SELECT *, (select count(*) from comments c where c.post_id = p.id) as comments_count 
+		FROM posts p 
+		WHERE p.thread_id = $1`, threadID); err != nil {
+		return []goreddit.PostWithCount{}, fmt.Errorf("error getting threads: %w", err)
 	}
 	return pp, nil
 }

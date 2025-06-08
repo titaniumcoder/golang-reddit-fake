@@ -1,0 +1,41 @@
+{{define "header"}}
+<h1>Welcome to goreddit</h1>
+{{end}}
+
+{{define "main"}}
+<article class="post">
+    <div class="votes">
+        <a href="#" class="upvote">⬆</a>
+        <span>10</span>
+        <a href="#" class="downvote">⬇</a>
+    </div>
+    <div class="content">
+        <a href="#" class="thread">The Go Programming Language</a>
+        <h2><a href="#">My experience with learning Golang</a></h2>
+        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat...</p>
+        <a href="post.html">2 Comments</a>
+    </div>
+</article>
+
+<article class="post">
+    <div class="votes">
+        <a href="#" class="upvote">⬆</a>
+        <span>2</span>
+        <a href="#" class="downvote">⬇</a>
+    </div>
+    <div class="content">
+        <a href="#" class="thread">The Go Programming Language</a>
+        <h2><a href="#">Lorem ipsum dolor sit amet, consetetur</a></h2>
+        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat...</p>
+        <a href="post.html">0 Comments</a>
+    </div>
+</article>
+{{end}}
+
+{{define "sidebar"}}
+<aside>
+    <h2>Explore interesting threads</h2>
+    <p>Browse through hundreds of interesting threads with great communities.</p>
+    <a href="/threads">Browse Threads</a>
+</aside>
+{{end}}

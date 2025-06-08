@@ -16,6 +16,11 @@ type Post struct {
 	Votes    int       `db:"votes"`
 }
 
+type PostWithCount struct {
+	Post
+	CommentCount int `db:"comments_count"`
+}
+
 type Comment struct {
 	ID      uuid.UUID `db:"id"`
 	PostID  uuid.UUID `db:"post_id"`
@@ -33,7 +38,7 @@ type ThreadStore interface {
 
 type PostStore interface {
 	Post(id uuid.UUID) (Post, error)
-	PostsByThread(threadID uuid.UUID) ([]Post, error)
+	PostsByThread(threadID uuid.UUID) ([]PostWithCount, error)
 	CreatePost(t *Post) error
 	UpdatePost(t *Post) error
 	DeletePost(id uuid.UUID) error
@@ -42,6 +47,7 @@ type PostStore interface {
 type CommentStore interface {
 	Comment(id uuid.UUID) (Comment, error)
 	Comments(postID uuid.UUID) ([]Comment, error)
+	CommentCount(postID uuid.UUID) (int, error)
 	CreateComment(t *Comment) error
 	UpdateComment(t *Comment) error
 	DeleteComment(id uuid.UUID) error

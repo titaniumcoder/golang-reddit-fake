@@ -1,0 +1,33 @@
+{{define "header"}}
+<h1>{{.Thread.Title}}</h1>
+{{end}}
+
+{{define "main"}}
+<section>
+    {{range .Posts}}
+    <article >
+        <div class="votes">
+            <a href="/threads/{{.ID}}/up-vote" class="upvote">⬆</a>
+            <span>{{.Votes}}</span>
+            <a href="/threads/{{.ID}}/down-vote" class="downvote">⬇</a>
+        </div>
+        <div class="content">
+            <h2>{{.Title}}</h2>
+            <p>{{.Content}}</p>
+            <a href="/threads/{{.ThreadID}}/{{.ID}}">{{.CommentCount}} Comments</a>
+        </div>
+    </article>
+    {{end}}
+</section>
+{{end}}
+
+{{define "sidebar"}}
+<aside class="community">
+    <h2>About Community</h2>
+    <p>{{.Thread.Description}}</p>
+    <a href="/threads/{{.Thread.ID}}/new" class="create-post">Create Post</a>
+    <form action="/threads/{{.Thread.ID}}/delete" method="post">
+        <button type="submit">Delete this thread</button>
+    </form>
+</aside>
+{{end}}

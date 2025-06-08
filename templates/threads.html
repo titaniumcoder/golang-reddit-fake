@@ -1,0 +1,23 @@
+{{define "header"}}
+<h1>Explore threads</h1>
+{{end}}
+
+{{define "main"}}
+<section class="threads">
+    {{range .Threads}}
+    <article>
+        <h2><a href="/threads/{{.ID}}">{{.Title}}</a></h2>
+        <p>{{.Description}}</p>
+        <a href="/threads/{{.ID}}">Browse Thread</a>
+    </article>
+    {{end}}
+</section>
+{{end}}
+
+{{define "sidebar"}}
+<aside class="create-thread">
+    <h2>Create a new thread</h2>
+    <p>Start a new community on goreddit and share experiences.</p>
+    <a href="/threads/new" class="button">Create Thread</a>
+</aside>
+{{end}}

@@ -1,0 +1,29 @@
+{{define "header"}}
+<nav>
+    <a href="/threads/{{.Post.ThreadID}}">← Back</a>
+</nav>
+<h1>{{.Post.Title}}</h1>
+<p> {{.Post.Content}}</p>
+{{end}}
+
+{{define "main"}}
+<section class="comment-form">
+    <form action="/threads/{{.Post.ThreadID}}/{{.Post.ID}}" method="post">
+        <textarea id="comment" name="comment" placeholder="What are your thoughts?" rows="4"></textarea>
+        <button type="submit">Comment</button>
+    </form>
+</section>
+
+<section class="comments">
+    {{range .Comments}}
+    <article class="comment">
+        <div class="votes">
+            <a href="/comments/{{.ID}}up-vote" class="upvote">⬆</a>
+            <span>{{.Votes}}</span>
+            <a href="/comments/{{.ID}}down-vote" class="downvote">⬇</a>
+        </div>
+        <p>{{.Content}}</p>
+    </article>
+    {{end}}
+</section>
+{{end}}

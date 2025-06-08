@@ -30,7 +30,7 @@ func (s *CommentStore) Comments(postID uuid.UUID) ([]goreddit.Comment, error) {
 
 func (s *CommentStore) CreateComment(t *goreddit.Comment) error {
 	if err := s.Get(t, `
-		INSERT INTO comments(id, post_id, content, contes) 
+		INSERT INTO comments(id, post_id, content, votes) 
 		VALUES ($1, $2, $3, $4) 
 		RETURNING *`, t.ID, t.PostID, t.Content, t.Votes); err != nil {
 		return fmt.Errorf("error creating comment: %w", err)
@@ -50,4 +50,11 @@ func (s *CommentStore) DeleteComment(id uuid.UUID) error {
 		return fmt.Errorf("error deleting comment: %w", err)
 	}
 	return nil
+}
+func (s *CommentStore) CommentCount(id uuid.UUID) (int, error) {
+	var count int
+	if err := s.Select(&count, `SELECT count(*) FROM comments where post_id=$1`, id); err != nil {
+		return 0, fmt.Errorf("error getting comments: %w", err)
+	}
+	return count, nil
 }
