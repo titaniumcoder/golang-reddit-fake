@@ -21,6 +21,17 @@ A simple Reddit clone built for Go web development training, inspired by [course
   make migrate
   ```
 
+## Live Reloading
+
+- **Air** for live reloading during development:
+  ```sh
+  air
+  ```
+  Install Air with:
+  ```sh
+  go install github.com/cosmtrek/air@latest
+  ```
+
 ## Source Material
 
 This project is based on the curriculum from [course.gowebexamples.com](https://course.gowebexamples.com).
